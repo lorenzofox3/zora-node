@@ -67,7 +67,7 @@ export default t => {
     t.test('use log reporter', async t => {
         try {
             const {stderr, stdout} = await run('test/samples/dummy/*.js', '-r', 'log');
-            t.eq(stdout.replace(/\d+ms/g, '{TIME}'), loadFileContent('test/samples/dummy/log.txt'));
+            t.eq(stdout.replace(/"executionTime":\d+,/g, '"executionTime":{TIME},'), loadFileContent('test/samples/dummy/log.txt'));
             t.notOk(stderr);
         } catch (e) {
             t.fail(`should not have any error`);
