@@ -1,6 +1,10 @@
-export default ({test}) => {
+export default ({test,skip, ok}) => {
+
+    // ok(false, 'hey hey');
+
     test('some test', t => {
         t.eq(3, 3);
+        t.eq(4, 4);
     });
 
     test(`failing`, t => {
