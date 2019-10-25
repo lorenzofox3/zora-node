@@ -16,7 +16,7 @@ Test runner for nodejs using [zora](https://github.com/lorenzofox3/zora) testing
 
 * yet the fastest
 
-See the user experience when running a test program made of 12 files with 8 test compared to other popular frameworks.
+See the user experience when running a test program made of 12 files with 8 tests compared to other popular frameworks.
 A test being:
 ```javascript
     test('test', async function (assert) {
@@ -26,8 +26,12 @@ A test being:
         assert.truthy(Math.random() * 100 > 3); // fails 3% of the time
     });
 ``` 
+<details>
+    <summary>Animated screen shots of diverse user experiences</summary>
 
 ![ux screen shot](./media/exp.png)
+
+</details>
 
 * Support esm module syntax with no extra bundling step (thanks to [esm module](https://www.npmjs.com/package/esm)) 
 
@@ -64,7 +68,12 @@ A reporter which takes advantage of TTYs to create very informative, straight to
 2. A diagnostic per failing assertion (with location, semantic structure, and detailed difference between expected and actual value)
 3. A summary counter.
 
+<details>
+    <summary> Report screen shot</summary>
+
 ![test report screen shot](./media/test_report.png)
+
+</details>
 
 ### log
 
@@ -93,7 +102,7 @@ async function processLineByLine(input = process.stdin) {
 processLineByLine();
 ```
 
-That's it. You have a custom reporter (whose package's name is "custom-reporter" for example) which print in the console the failing assertions' details. 
+That's it. You have a custom reporter (whose package's name is "custom-reporter" for example) which prints in the console the failing assertions' details. 
 
 ``pta -r log | custom-reporter``
 
@@ -123,6 +132,6 @@ We recommend to use [c8](https://www.npmjs.com/package/c8):
 
 ## Watch mode
 
-We recommend to use []()
+We recommend to use
 
 ``chokidar-cli "{src,test}/*.js" -c "pta"``
