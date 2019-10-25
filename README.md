@@ -27,6 +27,8 @@ A test being:
     });
 ``` 
 
+![ux screen shot](./media/exp.png)
+
 * Support esm module syntax with no extra bundling step (thanks to [esm module](https://www.npmjs.com/package/esm)) 
 
 * Effective reporters, perfect to find out about errors ("where", "what" and "why"). Not extra noise, fancy code highlights, etc ... straight to the point!
