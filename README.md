@@ -1,7 +1,5 @@
 # zora-node
 
-[![CircleCI](https://badgen.net/circleci/github/lorenzofox3/zora-node)](https://circleci.com/gh/lorenzofox3/zora-node)
-
 Test runner for nodejs using [zora](https://github.com/lorenzofox3/zora) testing library.
 
 ## Points of interest
