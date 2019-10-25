@@ -54,6 +54,7 @@ exports.defaultReporter = (theme = paint, stream = process.stdout) => {
     return async stream => {
         const tests = [];
         let testLines = 0;
+        let pass = true;
 
         printHeader('tests files', out);
         out.writeLine();
@@ -83,6 +84,7 @@ exports.defaultReporter = (theme = paint, stream = process.stdout) => {
 
             if (type === `ASSERTION`) {
                 if (isAssertionResult(data) || data.skip) {
+                    pass = pass && data.pass;
                     if (data.pass === false) {
                         current.incrementFailure();
                         current.addFailure(data);
@@ -103,8 +105,9 @@ exports.defaultReporter = (theme = paint, stream = process.stdout) => {
         printFailures(tests, out);
 
         printHeader('summary', out);
+
         out.writeLine();
+
         printFooter(tests, out);
     };
 };
-

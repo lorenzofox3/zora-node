@@ -3,14 +3,14 @@ const path = require('path');
 const {createReadStream} = require('fs');
 const esm = require('esm');
 const arg = require('arg');
-const globby = require('globby');
+const glob = require('fast-glob');
+
 const {createHarness, mochaTapLike, tapeTapLike} = require('zora');
 const {defaultReporter} = require('./reporters/default_reporter.js');
 const {logReporter} = require('./reporters/log_reporter.js');
 
 const DEFAULT_FILE_PATTERN = [
     '**/test.js',
-    '**/test-*.js',
     '**/*.spec.js',
     '**/*.test.js',
     '**/test/**/*.js',
@@ -69,7 +69,7 @@ const createReporterStream = value => {
     let uncaughtError = null;
 
     try {
-        const files = await globby(filePattern);
+        const files = await glob(filePattern);
         const requireFn = noESM === false ? esm(module) : require;
         for (const f of files) {
             const spec = requireFn(path.resolve(process.cwd(), f));

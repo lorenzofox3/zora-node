@@ -34,6 +34,35 @@ export default t => {
         }
     });
 
+    t.test(`errored test suite should exit the process with code 1`, async t => {
+        try {
+            await run('test/samples/errored/*.js');
+            t.fail('should not pass');
+        } catch (e) {
+            t.eq(e.code, 1, 'exit code should be 1');
+            t.ok(e.stderr.startsWith(`Error: some error`));
+        }
+    });
+
+    t.test(`failing test suite should exit the process with code 1`, async t => {
+        try {
+            await run('test/samples/failing/*.js');
+            t.fail('should not pass');
+        } catch (e) {
+            t.eq(e.code, 1, 'exit code should be 1');
+        }
+    });
+
+    t.test(`"skip" test should be skipped and build marked as passed`, async t => {
+        try {
+            const {stderr, stdout} = await run('test/samples/skip/*.js');
+            t.ok(stdout);
+            t.notOk(stderr);
+        } catch (e) {
+            t.fail(`should not have any error`);
+        }
+    });
+
     t.test('--help should output the help content', async t => {
         try {
             const {stderr, stdout} = await run('--help');
@@ -68,6 +97,16 @@ export default t => {
         try {
             const {stderr, stdout} = await run('test/samples/dummy/*.js', '-r', 'log');
             t.eq(stdout.replace(/"executionTime":\d+,/g, '"executionTime":{TIME},'), loadFileContent('test/samples/dummy/log.txt'));
+            t.notOk(stderr);
+        } catch (e) {
+            t.fail(`should not have any error`);
+        }
+    });
+
+    t.test(`no esm flag should understand cjs files`, async t => {
+        try {
+            const {stderr, stdout} = await run('test/samples/cjs/*.js', '--no-esm');
+            t.ok(stdout);
             t.notOk(stderr);
         } catch (e) {
             t.fail(`should not have any error`);

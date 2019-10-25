@@ -15,4 +15,4 @@ Usage
     pta ./test/{foo,bar}.spec.js
 
   If no argument is provided, the CLI will use the following patterns:
-    **/test.js **/test-*.js **/*.spec.js **/*.test.js **/test/**/*.js **/tests/**/*.js **/__tests__/**/*.js
+    **/test.js **/*.spec.js **/*.test.js **/test/**/*.js **/tests/**/*.js **/__tests__/**/*.js

@@ -1,7 +1,7 @@
 const {diffChars, diffJson} = require('diff');
 const {EOL} = require('os');
 
-const valToTypeString = val => {
+const valToTypeString = exports.valToTypeString = val => {
     const type = typeof val;
     switch (type) {
         case 'object': {
@@ -15,20 +15,10 @@ const valToTypeString = val => {
 
             return 'object';
         }
-        case 'undefined':
-        case 'boolean':
-        case 'function':
-        case 'number':
-        case 'string':
+        default:
             return type;
     }
 };
-
-const falsyDiagnostic = exports.falsyDiagnostic = diag => ({
-    report(out) {
-        out.writeBlock(`expected a ${out.operator('FALSY')} value but got ${out.error(JSON.stringify(diag.actual))}`, 4);
-    }
-});
 
 const truthyDiagnostic = exports.truthyDiagnostic = diag => ({
     report(out) {
@@ -43,6 +33,12 @@ const truthyDiagnostic = exports.truthyDiagnostic = diag => ({
         }
 
         out.writeBlock(`expected a ${out.operator('TRUTHY')} value but got ${out.error(val)}`, 4);
+    }
+});
+
+const falsyDiagnostic = exports.falsyDiagnostic = diag => ({
+    report(out) {
+        out.writeBlock(`expected a ${out.operator('FALSY')} value but got ${out.error(JSON.stringify(diag.actual))}`, 4);
     }
 });
 
@@ -70,7 +66,7 @@ const isNotDiagnostic = exports.isNotDiagnostic = () => ({
     }
 });
 
-const countPadding = string => {
+const countPadding = exports.countPadding = string => {
     let counter = 0;
     let i = 0;
 
@@ -111,7 +107,7 @@ const writeBooleanDifference = (out, actual, expected) => {
     out.writeBlock(`expected ${out.emphasis('boolean')} to be ${out.operator(expected)} but got ${out.error(actual)}`, 4);
 };
 
-const expandNewLines = (val, curr) => {
+const expandNewLines = exports.expandNewLines = (val, curr) => {
     const {value} = curr;
     const flatten = value
         .split(EOL)
@@ -177,7 +173,7 @@ const equalDiagnostic = exports.equalDiagnostic = diag => {
                         writeArrayDifference(out, actual, expected);
                         break;
                     default:
-                        out.writeBlock(`expected ${out.emphasis(expectedType)} to be ${out.operator('EQUIVALENT')} but they are not`);
+                        out.writeBlock(`expected ${out.emphasis(expectedType)} to be ${out.operator('EQUIVALENT')} but they are not`, 4);
                 }
             }
 

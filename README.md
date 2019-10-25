@@ -2,18 +2,18 @@
 
 Test runner for nodejs using [zora](https://github.com/lorenzofox3/zora) testing library.
 
-## Point of interests
+## Points of interest
 
 * one of the lightest
 
-|        |  zora  |  pta  |  tape |  Jest  |  AvA  |  Mocha|
-|--------|:------------:|:-----------:|:-----------:|:-------------:|:------------:|:------------:|
-|Install size |  [![zora](https://packagephobia.now.sh/badge?p=zora)](https://packagephobia.now.sh/result?p=zora)  |  [![pta](https://packagephobia.now.sh/badge?p=pta)](https://packagephobia.now.sh/result?p=zora)  |[![tape](https://packagephobia.now.sh/badge?p=tape)](https://packagephobia.now.sh/result?p=tape)  |  [![jes](https://packagephobia.now.sh/badge?p=jest)](https://packagephobia.now.sh/result?p=jest) |  [![ava](https://packagephobia.now.sh/badge?p=ava)](https://packagephobia.now.sh/result?p=ava) |  [![mocha](https://packagephobia.now.sh/badge?p=mocha)](https://packagephobia.now.sh/result?p=mocha) |
+|        |  pta  |  tape |  Jest  |  AVA  |  Mocha|
+|--------|:-----------:|:-----------:|:-------------:|:------------:|:------------:|
+|Install size | [![pta](https://packagephobia.now.sh/badge?p=pta)](https://packagephobia.now.sh/result?p=zora)  |[![tape](https://packagephobia.now.sh/badge?p=tape)](https://packagephobia.now.sh/result?p=tape)  |  [![jest](https://packagephobia.now.sh/badge?p=jest)](https://packagephobia.now.sh/result?p=jest) |  [![ava](https://packagephobia.now.sh/badge?p=ava)](https://packagephobia.now.sh/result?p=ava) |  [![mocha](https://packagephobia.now.sh/badge?p=mocha)](https://packagephobia.now.sh/result?p=mocha) |
 
 * yet the fastest
 
 See the user experience when running a test program made of 12 files with 8 test compared to other popular frameworks.
-A test having the following semantic:
+A test being:
 ```javascript
     test('test', async function (assert) {
         await new Promise(resolve => {
@@ -31,7 +31,7 @@ A test having the following semantic:
 
 ## Usage
 
-Write your spec files with a default export function taking as argument a zora's assert object
+Write your spec files with a default export function taking as argument a zora's assertion object
 
 ``./test/foo.js``
 ```javascript
@@ -55,10 +55,10 @@ More info about the CLI options can be found in [usage](src/usage.txt)
 A reporter which takes advantage of TTYs to create very informative, straight to the point reports:
 
 1. A test files diagnostic
-
 2. A diagnostic per failing assertion (with location, semantic structure, and detailed difference between expected and actual value)
-
 3. A summary counter.
+
+![test report screen shot](./media/test_report.png)
 
 ### log
 
@@ -108,3 +108,15 @@ of the format.
 Example with [tap-mocha-reporter](https://www.npmjs.com/package/tap-mocha-reporter)
 
 ``pta -r tap-indent | tap-mocha-reporter classic``
+
+## Code coverage
+
+We recommend to use [c8](): 
+
+``c8 pta``
+
+## Watch mode
+
+We recommend to use []()
+
+``chokidar-cli "{src,test}/*.js" -c "pta"``
