@@ -1,14 +1,18 @@
 # zora-node
 
+[![CircleCI](https://badgen.net/circleci/github/lorenzofox3/zora-node)](https://circleci.com/gh/lorenzofox3/zora-node)
+
 Test runner for nodejs using [zora](https://github.com/lorenzofox3/zora) testing library.
 
 ## Points of interest
+
+* zero config
 
 * one of the lightest
 
 |        |  pta  |  tape |  Jest  |  AVA  |  Mocha|
 |--------|:-----------:|:-----------:|:-------------:|:------------:|:------------:|
-|Install size | [![pta](https://packagephobia.now.sh/badge?p=pta)](https://packagephobia.now.sh/result?p=zora)  |[![tape](https://packagephobia.now.sh/badge?p=tape)](https://packagephobia.now.sh/result?p=tape)  |  [![jest](https://packagephobia.now.sh/badge?p=jest)](https://packagephobia.now.sh/result?p=jest) |  [![ava](https://packagephobia.now.sh/badge?p=ava)](https://packagephobia.now.sh/result?p=ava) |  [![mocha](https://packagephobia.now.sh/badge?p=mocha)](https://packagephobia.now.sh/result?p=mocha) |
+|Install size | [![pta](https://packagephobia.now.sh/badge?p=pta)](https://packagephobia.now.sh/result?p=pta)  |[![tape](https://packagephobia.now.sh/badge?p=tape)](https://packagephobia.now.sh/result?p=tape)  |  [![jest](https://packagephobia.now.sh/badge?p=jest)](https://packagephobia.now.sh/result?p=jest) |  [![ava](https://packagephobia.now.sh/badge?p=ava)](https://packagephobia.now.sh/result?p=ava) |  [![mocha](https://packagephobia.now.sh/badge?p=mocha)](https://packagephobia.now.sh/result?p=mocha) |
 
 * yet the fastest
 
@@ -23,7 +27,7 @@ A test being:
     });
 ``` 
 
-* Support esm module syntax with no extra bundling step (thanks to [esm module]()) 
+* Support esm module syntax with no extra bundling step (thanks to [esm module](https://www.npmjs.com/package/esm)) 
 
 * Effective reporters, perfect to find out about errors ("where", "what" and "why"). Not extra noise, fancy code highlights, etc ... straight to the point!
 
@@ -95,7 +99,7 @@ That's it. You have a custom reporter (whose package's name is "custom-reporter"
 
 A flatten [TAP](http://testanything.org/) (Test Anything Protocol) stream in the same format as [tape](https://github.com/substack/tape) produces. Can be parsed and piped into one (of the plenty) custom reporter available in npm (or any other technology's package registry - tap is widely spread).
 
-Example with [faucet]():
+Example with [faucet](https://www.npmjs.com/package/faucet):
 
 ``pta -r tap | faucet``
 
@@ -111,7 +115,7 @@ Example with [tap-mocha-reporter](https://www.npmjs.com/package/tap-mocha-report
 
 ## Code coverage
 
-We recommend to use [c8](): 
+We recommend to use [c8](https://www.npmjs.com/package/c8): 
 
 ``c8 pta``
 
