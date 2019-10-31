@@ -31,7 +31,7 @@ A test being:
 
 </details>
 
-* Support esm module syntax with no extra bundling step (thanks to [esm module](https://www.npmjs.com/package/esm)) 
+* Support esm module syntax with no extra bundling step (thanks to [esm module](https://www.npmjs.com/package/esm)) - we could eventually consider to remove it from the package and use node's require hook instead (``node -r esm myFile.js``), but for now using ESM syntax seems to be a common enough practice to embed esm as a dependency
 
 * Effective reporters, perfect to find out about errors ("where", "what" and "why"). Not extra noise, fancy code highlights, etc ... straight to the point!
 
@@ -122,14 +122,20 @@ Example with [tap-mocha-reporter](https://www.npmjs.com/package/tap-mocha-report
 
 ``pta -r tap-indent | tap-mocha-reporter classic``
 
+## Typescript
+
+We recommend to use [ts-node](https://github.com/TypeStrong/ts-node)
+
+``ts-node ./node_modules/.bin/pta [...args]``
+
 ## Code coverage
 
 We recommend to use [c8](https://www.npmjs.com/package/c8): 
 
-``c8 pta``
+``c8 pta [...args]``
 
 ## Watch mode
 
 We recommend to use
 
-``chokidar-cli "{src,test}/*.js" -c "pta"``
+``chokidar-cli "{src,test}/*.js" -c "pta [...args]"``
