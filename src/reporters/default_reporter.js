@@ -40,7 +40,7 @@ const printFooter = (tests, out) => {
     out.writeLine(paint.summarySkip(skipped), 1);
     out.writeLine(paint.summaryFail(failure), 1);
 
-    out.write(`${EOL}`);
+    out.writeLine(`${EOL}`);
 };
 
 const isAssertionResult = result => 'operator' in result;
