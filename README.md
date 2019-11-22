@@ -136,6 +136,10 @@ We recommend to use [c8](https://www.npmjs.com/package/c8):
 
 ## Watch mode
 
-We recommend to use [onchange](https://github.com/Qard/onchange)
+We recommend to use [chokidar-cli](http://github.com/kimmobrunfeldt/chokidar-cli) or [onchange](https://github.com/Qard/onchange)
+
+``chokidar '{test,src}/*.js' -c 'pta [...args]'``
+
+or
 
 ``onchange '**/*.js' -- pta [...args]``
