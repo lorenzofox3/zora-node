@@ -37,6 +37,9 @@ A test being:
 
 * All the goodies from [zora](https://github.com/lorenzofox3/zora)
 
+## Installation
+`npm i --save-dev pta`
+
 ## Usage
 
 Write your spec files with a default export function taking as argument a zora's assertion object
