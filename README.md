@@ -31,7 +31,7 @@ A test being:
 
 </details>
 
-* Support esm module syntax with no extra bundling step (thanks to [esm module](https://www.npmjs.com/package/esm)) - we could eventually consider to remove it from the package and use node's require hook instead (``node -r esm myFile.js``), but for now using ESM syntax seems to be a common enough practice to embed esm as a dependency
+* Support esm module syntax with no extra bundling step
 
 * Effective reporters, perfect to find out about errors ("where", "what" and "why"). Not extra noise, fancy code highlights, etc ... straight to the point!
 
@@ -129,7 +129,9 @@ Example with [tap-mocha-reporter](https://www.npmjs.com/package/tap-mocha-report
 
 We recommend to use [ts-node](https://github.com/TypeStrong/ts-node)
 
-``ts-node ./node_modules/.bin/pta [...args]``
+As ts-node support for native ES module is partial, you should tell pta to use the cjs module loader
+
+``ts-node ./node_modules/.bin/pta --module-loader=cjs [...args]``
 
 ## Code coverage
 
