@@ -1,6 +1,6 @@
-const {EOL} = require('os');
+import {EOL} from 'os';
 
-exports.logReporter = (out = process.stdout) => async stream => {
+export const logReporter = (out = process.stdout) => async stream => {
     for await (const message of stream) {
         if (message.type === 'BAIL_OUT') {
             throw message.data;

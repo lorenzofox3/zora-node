@@ -1,8 +1,8 @@
-const {EOL} = require('os');
-const {output} = require('../output_stream.js');
-const {paint} = require('./theme.js');
-const {testFile} = require('./test_file.js');
-const {getDiagnosticReporter} = require('./diagnostic.js');
+import {EOL} from 'os';
+import {output} from '../output_stream.js';
+import {paint} from './theme.js';
+import {testFile} from './test_file.js';
+import {getDiagnosticReporter} from './diagnostic.js';
 
 const printHeader = (message, out) => {
     const header = message.toUpperCase();
@@ -13,12 +13,12 @@ const printFailures = (tests, out) => {
     const failing = tests
         .filter(t => t.failureList.length)
         .reduce((acc, curr) => acc.concat([...curr]), []);
-
+    
     if (failing.length === 0) {
         out.writeLine('N/A', 2);
         return;
     }
-
+    
     failing.forEach((failure, index) => {
         const data = failure.data;
         const [file, ...testPath] = failure.path;
@@ -27,7 +27,7 @@ const printFailures = (tests, out) => {
         out.writeLine(`${paint.adornment('at')} ${paint.stackTrace(data.at)}`, 4);
         getDiagnosticReporter(data).report(out);
         out.writeLine(out.adornment('_'.repeat(out.width)));
-
+        
     });
 };
 
@@ -35,42 +35,42 @@ const printFooter = (tests, out) => {
     const skipped = tests.reduce((acc, curr) => acc + curr.skip, 0);
     const failure = tests.reduce((acc, curr) => acc + curr.failure, 0);
     const success = tests.reduce((acc, curr) => acc + curr.success, 0);
-
+    
     out.writeLine(paint.summaryPass(success), 1);
     out.writeLine(paint.summarySkip(skipped), 1);
     out.writeLine(paint.summaryFail(failure), 1);
-
+    
     out.writeLine(`${EOL}`);
 };
 
 const isAssertionResult = result => 'operator' in result;
 
-exports.defaultReporter = (theme = paint, stream = process.stdout) => {
-
+export default (theme = paint, stream = process.stdout) => {
+    
     const out = Object.assign(output(stream), theme, {
         width: stream.columns || 80
     });
-
+    
     return async stream => {
         const tests = [];
         let testLines = 0;
         let pass = true;
-
+        
         printHeader('tests files', out);
         out.writeLine();
-
+        
         for await (const message of stream) {
             const current = tests[tests.length - 1];
             const {data, offset, type} = message;
-
+            
             if (type === 'BAIL_OUT') {
                 throw data;
             }
-
+            
             if (type === 'TEST_END' && offset > 0) {
                 current.goOut();
             }
-
+            
             if (type === `TEST_START`) {
                 if (offset === 0) {
                     testLines++;
@@ -81,7 +81,7 @@ exports.defaultReporter = (theme = paint, stream = process.stdout) => {
                     current.goIn(data.description);
                 }
             }
-
+            
             if (type === `ASSERTION`) {
                 if (isAssertionResult(data) || data.skip) {
                     pass = pass && data.pass;
@@ -98,16 +98,16 @@ exports.defaultReporter = (theme = paint, stream = process.stdout) => {
                     tests[tests.length - 1].writeLine();
                 }
             }
-
+            
         }
-
+        
         printHeader('failures', out);
         printFailures(tests, out);
-
+        
         printHeader('summary', out);
-
+        
         out.writeLine();
-
+        
         printFooter(tests, out);
     };
 };

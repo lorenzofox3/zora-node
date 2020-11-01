@@ -1,18 +1,18 @@
-const {EOL} = require('os');
+import {EOL} from 'os';
 
-const delegate = exports.delegate = (...methods) => target => {
+export const delegate = (...methods) => target => {
     const output = {};
-
+    
     for (const m of methods) {
         output[m] = (...args) => target[m](...args);
     }
-
+    
     return output;
 };
 
 const delegateTTY = delegate('write', 'clearLine', 'cursorTo', 'moveCursor', 'end');
 
-exports.output = stream => {
+export const output = stream => {
     return Object.assign(delegateTTY(stream), {
         writeLine(message = '', padding = 0) {
             this.write(' '.repeat(padding) + message + EOL);

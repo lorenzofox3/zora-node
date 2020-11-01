@@ -1,18 +1,18 @@
-const {diffChars, diffJson} = require('diff');
-const {EOL} = require('os');
+import {diffChars, diffJson} from 'diff';
+import {EOL} from 'os';
 
-const valToTypeString = exports.valToTypeString = val => {
+export const valToTypeString = val => {
     const type = typeof val;
     switch (type) {
         case 'object': {
             if (val === null) {
                 return null;
             }
-
+            
             if (Array.isArray(val)) {
                 return 'array';
             }
-
+            
             return 'object';
         }
         default:
@@ -20,60 +20,60 @@ const valToTypeString = exports.valToTypeString = val => {
     }
 };
 
-const truthyDiagnostic = exports.truthyDiagnostic = diag => ({
+export const truthyDiagnostic = diag => ({
     report(out) {
         let val = diag.actual;
-
+        
         if (val === '') {
             val = '""';
         }
-
+        
         if (val === undefined) {
             val = 'undefined';
         }
-
+        
         out.writeBlock(`expected a ${out.operator('TRUTHY')} value but got ${out.error(val)}`, 4);
     }
 });
 
-const falsyDiagnostic = exports.falsyDiagnostic = diag => ({
+export const falsyDiagnostic = diag => ({
     report(out) {
         out.writeBlock(`expected a ${out.operator('FALSY')} value but got ${out.error(JSON.stringify(diag.actual))}`, 4);
     }
 });
 
-const notEqualDiagnostic = exports.notEqualDiagnostic = () => ({
+export const notEqualDiagnostic = () => ({
     report(out) {
         out.writeBlock(`expected values ${out.operator('NOT TO BE EQUIVALENT')} but they are`, 4);
     }
 });
 
-const unknownOperatorDiagnostic = exports.unknownOperatorDiagnostic = diag => ({
+export const unknownOperatorDiagnostic = diag => ({
     report(out) {
         out.writeBlock(`(unknown operator: ${diag.operator})`, 4);
     }
 });
 
-const isDiagnostic = exports.isDiagnostic = () => ({
+export const isDiagnostic = () => ({
     report(out) {
         out.writeBlock(`expected values to point the ${out.operator('SAME REFERENCE')} but they don't`, 4);
     }
 });
 
-const isNotDiagnostic = exports.isNotDiagnostic = () => ({
+export const isNotDiagnostic = () => ({
     report(out) {
         out.writeBlock(`expected values to point ${out.operator('DIFFERENT REFERENCES')} but they point the same`, 4);
     }
 });
 
-const countPadding = exports.countPadding = string => {
+export const countPadding = string => {
     let counter = 0;
     let i = 0;
-
+    
     if (typeof string !== 'string') {
         return 0;
     }
-
+    
     for (i; i < string.length; i++) {
         if (string[i] !== ' ') {
             return counter;
@@ -97,7 +97,7 @@ const writeStringDifference = (out, actual, expected) => {
         .filter(diff => !diff.removed)
         .map(d => d.added ? out.diffAdd(d.value) : out.diffSame(d.value))
         .join('');
-
+    
     out.writeBlock(`expected ${out.emphasis('string')} to be ${out.operator(expected)} but got the following differences:`, 4);
     out.writeBlock(`${out.error('-')} ${toRemove}`, 4);
     out.writeLine(`${out.success('+')} ${toAdd}`, 4);
@@ -116,7 +116,7 @@ const expandNewLines = exports.expandNewLines = (val, curr) => {
             value: p.trim(),
             padding: countPadding(p)
         }));
-
+    
     val.push(...flatten);
     return val;
 };
@@ -135,18 +135,18 @@ const writeObjectLikeDifference = type => (out, actual, expected) => {
     const lineDiffs = diff
         .reduce(expandNewLines, [])
         .map(printDiffLines);
-
+    
     out.writeBlock(`expected ${out.emphasis(type)} to be ${out.operator('EQUIVALENT')} but got the following differences:`, 4);
     out.writeLine();
     for (const l of lineDiffs) {
         out.writeLine(l, 2);
     }
-
+    
 };
 const writeObjectDifference = writeObjectLikeDifference('objects');
 const writeArrayDifference = writeObjectLikeDifference('arrays');
 
-const equalDiagnostic = exports.equalDiagnostic = diag => {
+export const equalDiagnostic = diag => {
     const {actual, expected} = diag;
     const expectedType = valToTypeString(expected);
     const actualType = valToTypeString(actual);
@@ -176,12 +176,12 @@ const equalDiagnostic = exports.equalDiagnostic = diag => {
                         out.writeBlock(`expected ${out.emphasis(expectedType)} to be ${out.operator('EQUIVALENT')} but they are not`, 4);
                 }
             }
-
+            
         }
     };
 };
 
-exports.getDiagnosticReporter = diag => {
+export const getDiagnosticReporter = diag => {
     switch (diag.operator) {
         case 'ok':
             return truthyDiagnostic(diag);

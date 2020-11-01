@@ -4,8 +4,6 @@ Usage
   Options
     --only, -o              Runs zora in "only mode"
 
-    --no-esm                If true, does not use "esm" module to load files
-
     --reporter, -r          One of tap, tap-indent, log. Otherwise it will use the
                             default reporter
 

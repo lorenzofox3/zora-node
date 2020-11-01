@@ -1,17 +1,17 @@
-const kleur = require('kleur');
+export kleur from 'kleur';
 
-const theme = exports.theme = ({
-                                   bgGreen,
-                                   bgRed,
-                                   bgYellow,
-                                   green,
-                                   red,
-                                   cyan,
-                                   gray,
-                                   yellow,
-                                   bold,
-                                   underline
-                               } = kleur) => ({
+export const theme = ({
+                          bgGreen,
+                          bgRed,
+                          bgYellow,
+                          green,
+                          red,
+                          cyan,
+                          gray,
+                          yellow,
+                          bold,
+                          underline
+                      } = kleur) => ({
     emphasis(message) {
         return underline().bold(message);
     },
@@ -63,4 +63,4 @@ const theme = exports.theme = ({
     }
 });
 
-exports.paint = theme();
+export const paint = theme();
