@@ -1,4 +1,4 @@
-import {logReporter} from '../../src/reporters/log_reporter.js';
+import logReporter from '../../src/reporters/log_reporter.js';
 
 const fakeOutputStream = () => {
     const buffer = [];

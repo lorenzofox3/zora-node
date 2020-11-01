@@ -1,3 +1,3 @@
-exports.default = t => {
+module.exports = t => {
     t.ok(true);
 };

@@ -1,4 +1,4 @@
-import {testFile} from '../../src/reporters/test_file.js';
+import testFile from '../../src/reporters/test_file.js';
 
 export default t => {
     t.test(`factory should init an instance`, t => {

@@ -1,5 +1,5 @@
 TAP version 13
-# test/samples/dummy/test.js
+# test.js
 ok 1 - woot woot
 1..1
 

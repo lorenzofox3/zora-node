@@ -1,13 +1,16 @@
 #!/usr/bin/env node
-const path = require('path');
-const {createReadStream} = require('fs');
-const esm = require('esm');
-const arg = require('arg');
-const glob = require('fast-glob');
+import {dirname, resolve} from 'path';
+import {fileURLToPath} from 'url';
+import {createReadStream, readFileSync} from 'fs';
+import arg from 'arg';
+import glob from 'fast-glob';
+import {createHarness, mochaTapLike, tapeTapLike} from 'zora';
+import defaultReporter from './reporters/default_reporter.js';
+import logReporter from './reporters/log_reporter.js';
+import loadSpec from './loader.js';
 
-const {createHarness, mochaTapLike, tapeTapLike} = require('zora');
-const {defaultReporter} = require('./reporters/default_reporter.js');
-const {logReporter} = require('./reporters/log_reporter.js');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const DEFAULT_FILE_PATTERN = [
     '**/test.js',
@@ -37,7 +40,7 @@ const createReporterStream = value => {
     const argSpecs = {
         '--help': Boolean,
         '--only': Boolean,
-        '--no-esm': Boolean,
+        '--module-loader': String,
         '--reporter': String,
         '-o': '--only',
         '-r': '--reporter'
@@ -45,43 +48,42 @@ const createReporterStream = value => {
     const {
         _: filePatternArg,
         ['--only']: runOnly = false,
-        ['--no-esm']: noESM = false,
+        ['--module-loader']: loader = 'es',
         ['--reporter']: reporter = 'default',
         ['--help']: help
     } = arg(argSpecs, {
         permissive: false,
         argv: process.argv.slice(2)
     });
-
+    
     const filePattern = filePatternArg.length > 0 ? filePatternArg : DEFAULT_FILE_PATTERN;
     const reporterStream = createReporterStream(reporter);
-
+    
     // create a custom test harness
     const testHarness = createHarness({
         runOnly
     });
-
+    
     if (help) {
-        createReadStream(path.resolve(__dirname, './usage.txt')).pipe(process.stdout);
+        createReadStream(resolve(__dirname, './usage.txt')).pipe(process.stdout);
         return;
     }
-
+    
     let uncaughtError = null;
-
+    
     try {
         const files = await glob(filePattern);
-        const requireFn = noESM === false ? esm(module) : require;
-        for (const f of files) {
-            const spec = requireFn(path.resolve(process.cwd(), f));
-
+        for (const file of files) {
+            const spec = await loadSpec({path: file, loader});
+            
             function zora_spec_fn(assert) {
-                return spec.default ? spec.default(assert) : spec(assert);
+                return spec(assert);
             }
-
+            
             if (runOnly) {
-                testHarness.only(f, zora_spec_fn);
+                testHarness.only(file, zora_spec_fn);
             } else {
-                testHarness.test(f, zora_spec_fn);
+                testHarness.test(file, zora_spec_fn);
             }
         }
         await testHarness.report(reporterStream);

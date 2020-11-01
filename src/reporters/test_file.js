@@ -36,7 +36,7 @@ const TestFilePrototype = {
     }
 };
 
-export const testFile = (file, out) => {
+export default (file, out) => {
     let success = 0;
     let failure = 0;
     let skip = 0;

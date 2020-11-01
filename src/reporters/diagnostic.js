@@ -107,7 +107,7 @@ const writeBooleanDifference = (out, actual, expected) => {
     out.writeBlock(`expected ${out.emphasis('boolean')} to be ${out.operator(expected)} but got ${out.error(actual)}`, 4);
 };
 
-const expandNewLines = exports.expandNewLines = (val, curr) => {
+export const expandNewLines = (val, curr) => {
     const {value} = curr;
     const flatten = value
         .split(EOL)

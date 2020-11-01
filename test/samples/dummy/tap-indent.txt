@@ -1,8 +1,8 @@
 TAP version 13
-# Subtest: test/samples/dummy/test.js
+# Subtest: test.js
     ok 1 - woot woot
     1..1
-ok 1 - test/samples/dummy/test.js # {TIME}
+ok 1 - test.js # {TIME}
 1..1
 
 # ok

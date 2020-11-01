@@ -4,12 +4,14 @@ Usage
   Options
     --only, -o              Runs zora in "only mode"
 
+    --module-loader         Specify how to load modules ("cjs", "es" - default)
+
     --reporter, -r          One of tap, tap-indent, log. Otherwise it will use the
                             default reporter
 
   Examples
     pta
-    pta test.js test2.js
+    pta test.js test2.cjs
     pta ./test/{foo,bar}.spec.js
 
   If no argument is provided, the CLI will use the following patterns:

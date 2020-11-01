@@ -1,7 +1,7 @@
 import {EOL} from 'os';
 import {output} from '../output_stream.js';
 import {paint} from './theme.js';
-import {testFile} from './test_file.js';
+import testFile from './test_file.js';
 import {getDiagnosticReporter} from './diagnostic.js';
 
 const printHeader = (message, out) => {

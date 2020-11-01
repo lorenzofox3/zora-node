@@ -1,4 +1,4 @@
-export kleur from 'kleur';
+import kleur from 'kleur';
 
 export const theme = ({
                           bgGreen,
