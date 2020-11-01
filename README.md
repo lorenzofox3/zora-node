@@ -2,6 +2,10 @@
 
 Test runner for nodejs using [zora](https://github.com/lorenzofox3/zora) testing library.
 
+Support Node >= 14, 
+
+For older versions of Node, you can still use the 0.1.x release of this package
+
 ## Points of interest
 
 * zero config
