@@ -44,7 +44,7 @@ export const theme = ({
         return yellow(`${bold('⚠ SKIP')}: ${count}`);
     },
     summaryFail(count) {
-        return red(`${bold('✔ FAIL')}: ${count}`);
+        return red(`${bold('✖ FAIL')}: ${count}`);
     },
     error(value) {
         return red(value);
