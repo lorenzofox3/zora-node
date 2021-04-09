@@ -1,5 +1,6 @@
 import {createRequire} from 'module';
 import {resolve} from 'path';
+import {pathToFileURL} from 'url';
 
 export default async ({loader = 'ES', path}) => {
     if (loader === 'cjs') {
@@ -9,7 +10,7 @@ export default async ({loader = 'ES', path}) => {
     return loadES(path);
     
     async function loadES(path) {
-        const module = await import(resolve(process.cwd(), path));
+        const module = await import(pathToFileURL(resolve(process.cwd(), path)));
         return module.default;
     }
     
