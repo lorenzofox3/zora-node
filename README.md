@@ -4,7 +4,7 @@ Test runner for nodejs using [zora](https://github.com/lorenzofox3/zora) testing
 
 Support Node >= 14, 
 
-For older versions of Node, you can still use the 0.1.x release of this package
+For zora v4 only. For the latest versions of zora please refer to the [zora monorepo](https://github.com/lorenzofox3/zora/tree/master/pta)
 
 ## Points of interest
 
